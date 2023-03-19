@@ -194,6 +194,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        /**
+         * Ajout du package tymon/jwt-auth pour gérer l'authentification via json web token
+         */
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
     ],
 
@@ -210,6 +214,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTAuthFactory' => Tymon\JWTAuth\Facades\JWTAuthFactory::class,
     ])->toArray(),
 
 ];
