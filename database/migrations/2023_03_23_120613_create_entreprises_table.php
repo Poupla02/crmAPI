@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('entreprises', function (Blueprint $table) {
             $table->id();
+            $table->string('nom')->nullable(false);
+            $table->string('email')->nullable(true);
             $table->timestamps();
         });
     }
