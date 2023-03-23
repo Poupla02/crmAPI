@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('employes', function (Blueprint $table) {
             $table->id();
+            $table->string('nom')->nullable(false);
+            $table->string('prenom')->nullable(false);
+            $table->string('email')->nullable(true)->unique();
+            $table->string('telephone')->nullable(true);
+            $table->unsignedBigInteger('entreprise_id');
+            $table->foreign('entreprise_id')->references('id')->on('entreprises');
             $table->timestamps();
         });
     }
