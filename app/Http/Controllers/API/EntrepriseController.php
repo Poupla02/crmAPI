@@ -5,8 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEntrepriseRequest;
 use App\Http\Requests\UpdateEntrepriseRequest;
+use App\Http\Resources\API\ApiResource;
 use App\Models\Entreprise;
 use Illuminate\Http\JsonResponse;
+use PHPUnit\Exception;
 
 class EntrepriseController extends Controller
 {
@@ -32,11 +34,16 @@ class EntrepriseController extends Controller
      */
     public function store(StoreEntrepriseRequest $request): JsonResponse
     {
-        $entreprise = Entreprise::create($request->validated());
-        return response()->json([
-            'message' => 'entreprise créée avec succès.',
-            'entreprise' => $entreprise
-        ], 201);
+        try {
+            $entreprise = Entreprise::create($request->validated());
+            return response()->json([
+                'message' => 'entreprise créée avec succès.',
+                'entreprise' => $entreprise
+            ], 201);
+        }catch (Exception $exception)
+        {
+            return response()->json(['error' => $exception->getMessage()], 500);
+        }
     }
 
     /**
@@ -44,10 +51,16 @@ class EntrepriseController extends Controller
      */
     public function show(Entreprise $entreprise): JsonResponse
     {
-        return response()->json([
-            'message' => 'Succès.',
-            'entreprise' => $entreprise
-        ], 200);
+        try{
+            return response()->json([
+                'message' => 'Succès.',
+                'entreprise' => new ApiResource($entreprise)
+            ], 200);
+
+        }catch (Exception $exception)
+        {
+            return response()->json(['error' => $exception->getMessage()], 500);
+        }
     }
 
     /**
@@ -55,11 +68,16 @@ class EntrepriseController extends Controller
      */
     public function update(UpdateEntrepriseRequest $request, Entreprise $entreprise): JsonResponse
     {
-        $entreprise = $entreprise->update($request->validated());
-        return response()->json([
-            'message' => 'Entreprise modifier avec succès.',
-            'entreprise' => $entreprise
-        ], 200);
+        try {
+            $entreprise->update($request->validated());
+            return response()->json([
+                'message' => 'Entreprise modifier avec succès.',
+                'entreprise' => new ApiResource($entreprise)
+            ], 200);
+        }catch (Exception $exception)
+        {
+            return response()->json(['error' => $exception->getMessage()], 500);
+        }
     }
 
     /**
@@ -67,10 +85,10 @@ class EntrepriseController extends Controller
      */
     public function destroy(Entreprise $entreprise): JsonResponse
     {
-        $entreprise = $entreprise->delete();
+        $entreprise->delete();
         return response()->json([
             'message' => 'Succès.',
-            'entreprise' => $entreprise
+            'entreprise' => new ApiResource($entreprise)
         ], 200);
     }
 }
