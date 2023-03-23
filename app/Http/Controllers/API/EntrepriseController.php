@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Models\Entreprise;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEntrepriseRequest;
 use App\Http\Requests\UpdateEntrepriseRequest;
+use App\Models\Entreprise;
 
 class EntrepriseController extends Controller
 {
