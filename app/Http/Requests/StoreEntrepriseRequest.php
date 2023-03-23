@@ -26,7 +26,7 @@ class StoreEntrepriseRequest extends FormRequest
     {
         return [
             'nom' => 'required|string',
-            'email' => 'nullable'
+            'email' => 'nullable|string|email'
         ];
     }
 

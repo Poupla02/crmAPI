@@ -24,7 +24,7 @@ class UpdateEntrepriseRequest extends FormRequest
     {
         return [
             'nom' => 'required',
-            'email' => 'required|string|email|unique:users'
+            'email' => 'nullable|string|email'
         ];
     }
 }
