@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateEmployeRequest extends FormRequest
 {
@@ -11,18 +13,21 @@ class UpdateEmployeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, Rule|array|string>
      */
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|string',
+            'prenom' => 'required|string',
+            'email' => 'nullable',
+            'telephone' => 'nullable',
         ];
     }
 }

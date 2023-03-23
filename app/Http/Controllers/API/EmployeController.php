@@ -22,7 +22,7 @@ class EmployeController extends Controller
      */
     public function store(StoreEmployeRequest $request)
     {
-        //
+
     }
 
     /**
